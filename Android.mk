@@ -179,6 +179,7 @@ LOCAL_PRODUCT_MODULE := true
 LOCAL_USE_AAPT2 := true
 LOCAL_REQUIRED_MODULES := privapp_whitelist_com.android.dialer
 LOCAL_REQUIRED_MODULES += privapp_whitelist_com.android.dialer-ext.xml
+LOCAL_USES_LIBRARIES := org.apache.http.legacy
 
 include $(BUILD_PACKAGE)
 
