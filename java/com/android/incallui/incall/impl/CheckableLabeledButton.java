@@ -122,7 +122,7 @@ public class CheckableLabeledButton extends LinearLayout implements Checkable {
     if (isDarkM){
       labelView.setTextColor(Color.WHITE);
     } else{
-      labelView.setTextColor(Color.BLACK);
+      labelView.setTextColor(Color.WHITE);
     }
     labelView.setMaxEms(9);
     labelView.setEllipsize(TruncateAt.END);
@@ -154,7 +154,7 @@ public class CheckableLabeledButton extends LinearLayout implements Checkable {
       iconView.setImageTintList(
           new ColorStateList(
               new int[][] {new int[] {android.R.attr.state_checked}, new int[] {}},
-              new int[] {color, Color.BLACK}));      
+              new int[] {color, Color.WHITE}));      
     }
   }
 
