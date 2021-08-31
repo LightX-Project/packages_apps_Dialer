@@ -117,7 +117,7 @@ public class CheckableLabeledButton extends LinearLayout implements Checkable {
     labelView.setLayoutParams(labelParams);
     labelView.setTextAppearance(R.style.Dialer_Incall_TextAppearance_Label);
     labelView.setText(labelText);
-    labelView.setSingleLine(false);
+    labelView.setSingleLine();
     labelView.setMaxLines(2);
     if (isDarkM){
       labelView.setTextColor(Color.WHITE);
