@@ -26,12 +26,10 @@
     android:keepScreenOn="true">
 
     <ImageView
-	android:id="@+id/contactgrid_avatar2"
-        android:foreground="@drawable/gradientBg"
+        android:id="@+id/contactgrid_avatar2"
         android:src="@drawable/nopicbg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.8"
         android:scaleType="centerCrop"/>
 
   <TextureView
@@ -108,14 +106,14 @@
       <com.android.incallui.autoresizetext.AutoResizeTextView
           android:id="@id/contactgrid_contact_name"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_height="120dp"
           android:layout_marginTop="32dp"
           android:layout_marginBottom="8dp"
           android:layout_marginStart="12dp"
           android:layout_marginEnd="22dp"
           android:layout_gravity="start"
-	  android:maxLines="2"
-	  android:singleLine="false"
+          android:maxLines="3"
+          android:singleLine="false"
           android:textAppearance="@style/Dialer.Incall.TextAppearance.Large"
           android:textSize="@dimen/answer_contact_name_text_size"
           app:autoResizeText_minTextSize="@dimen/answer_contact_name_min_size"

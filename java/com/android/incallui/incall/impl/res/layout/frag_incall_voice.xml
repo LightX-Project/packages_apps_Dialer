@@ -24,11 +24,9 @@
 
     <ImageView
         android:id="@id/contactgrid_avatar"
-	android:foreground="@drawable/gradientBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-	android:alpha="0.9"
-	android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
       android:id="@+id/incall_ui_container"

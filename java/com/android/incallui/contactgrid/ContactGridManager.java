@@ -58,6 +58,8 @@ import com.android.incallui.incall.protocol.PrimaryInfo;
 import java.util.List;
 import android.util.Log;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.view.animation.Animation;
+
 /** Utility to manage the Contact grid */
 public class ContactGridManager {
 
@@ -305,15 +307,15 @@ public class ContactGridManager {
               ? PhoneNumberUtils.createTtsSpannable(primaryInfo.name())
               : primaryInfo.name());
 
-	if (!primaryInfo.nameIsNumber()){
-	String name = primaryInfo.name();
-	String[] names = name.split(" ", 2);
-        String firstName = names[0];
-        String restName  = "";
-	if (names.length > 1)
-            restName = "\n"+names[1];
-	contactNameTextView.setText(firstName+restName);
-	}
+        if (!primaryInfo.nameIsNumber()){
+            String name = primaryInfo.name();
+            String[] names = name.split(" ", 2);
+            String firstName = names[0];
+            String restName  = "";
+            if (names.length > 1)
+                restName = "\n"+names[1];
+            contactNameTextView.setText(firstName+restName);
+        }
       // Set direction of the name field
       int nameDirection = View.TEXT_DIRECTION_INHERIT;
       if (primaryInfo.nameIsNumber()) {
@@ -323,7 +325,7 @@ public class ContactGridManager {
     }
 
     if (avatarImageView != null) {
-	Log.d("satyam", ""+hideAvatar);
+      avatarImageView.setAlpha(.85f);
       if (hideAvatar) {
         avatarImageView.setVisibility(View.GONE);
       } else if (avatarSize > 0 && updateAvatarVisibility()) {
@@ -376,7 +378,7 @@ public class ContactGridManager {
     if (hasPhoto) {
         avatarImageView.setImageDrawable(primaryInfo.photo());
     } else {
-	Drawable defaultImg =  context.getDrawable(R.drawable.nopicbg);
+        Drawable defaultImg =  context.getDrawable(R.drawable.nopicbg);
         avatarImageView.setImageDrawable(defaultImg);
     }
   }
@@ -437,7 +439,7 @@ public class ContactGridManager {
       bottomTextSwitcher.setVisibility(View.VISIBLE);
     }
 
-    setAvatarAlphaToMax(info.isTimerVisible);
+    setAvatarAlpha(info.isTimerVisible);
     if (info.isTimerVisible) {
       bottomTextSwitcher.setDisplayedChild(1);
       bottomTimerView.setBase(
@@ -459,11 +461,16 @@ public class ContactGridManager {
     }
   }
 
-  public void setAvatarAlphaToMax(boolean transMax){
-      if (avatarImageView!=null){
-          avatarImageView.animate().alpha(transMax? 1f : .85f).setInterpolator(new LinearOutSlowInInterpolator()).setDuration(1500).start();
+  public void setAvatarAlpha(boolean isTimerVisible){
+      if (avatarImageView != null && isTimerVisible){
+          avatarImageView.animate()
+                .alpha(.2f)
+                .setInterpolator(new LinearOutSlowInInterpolator())
+                .setDuration(3000)
+                .start();
       }
   }
+
   private void updateDeviceNumberRow() {
     // It might not be available, e.g. in video call.
     if (deviceNumberTextView == null) {
