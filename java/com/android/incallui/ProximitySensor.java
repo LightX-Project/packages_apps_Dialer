@@ -55,6 +55,13 @@ public class ProximitySensor
   private static final String TAG = ProximitySensor.class.getSimpleName();
   private static final String PREF_KEY_DISABLE_PROXI_SENSOR = "disable_proximity_sensor_key";
 
+  private static final String PROXIMITY_AUTO_SPEAKER  = "proximity_auto_speaker";
+  private static final String PROXIMITY_AUTO_SPEAKER_DELAY  = "proximity_auto_speaker_delay";
+  private static final String PROXIMITY_AUTO_SPEAKER_INCALL_ONLY  = "proximity_auto_speaker_incall_only";
+  private static final String PROXIMITY_AUTO_ANSWER_INCALL_ONLY  = "proximity_auto_answer_incall_only";
+  private static final String AUTO_ANSWER_DELAY  = "auto_answer_delay";
+  private static final String AUTO_ANSWER_CALL_KEY  = "auto_answer_call_key";
+
   private final PowerManager powerManager;
   private final PowerManager.WakeLock proximityWakeLock;
   private SensorManager sensor;
@@ -400,13 +407,13 @@ public class ProximitySensor
     final int audioRoute = audioModeProvider.getAudioState().getRoute();
     final boolean proxIncallAnswPref =
                 (Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.PROXIMITY_AUTO_ANSWER_INCALL_ONLY, 0) == 1);
+                PROXIMITY_AUTO_ANSWER_INCALL_ONLY, 0) == 1);
     answerDelay = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.AUTO_ANSWER_DELAY, 5000);
+                AUTO_ANSWER_DELAY, 5000);
     if (isNear && telecomManager != null && !isScreenReallyOff() && proxIncallAnswPref) {
     telecomManager.acceptRingingCall();
 	if (Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.AUTO_ANSWER_CALL_KEY, 0) == 1 && (audioRoute == CallAudioState.ROUTE_WIRED_HEADSET
+                AUTO_ANSWER_CALL_KEY, 0) == 1 && (audioRoute == CallAudioState.ROUTE_WIRED_HEADSET
 								  || audioRoute == CallAudioState.ROUTE_BLUETOOTH)) {
         handlerAnswer.postDelayed(answerCall, answerDelay);
 	}
@@ -415,7 +422,7 @@ public class ProximitySensor
 
    private boolean proxSpeakerIncallOnly() {
     return  Settings.System.getInt(mContext.getContentResolver(),
-        Settings.System.PROXIMITY_AUTO_SPEAKER_INCALL_ONLY, 0) == 1;
+        PROXIMITY_AUTO_SPEAKER_INCALL_ONLY, 0) == 1;
    }
 
    private void setProxSpeaker(final boolean speaker) {
@@ -423,10 +430,10 @@ public class ProximitySensor
     handler.removeCallbacks(activateSpeaker);
      final int audioState = audioModeProvider.getAudioState().getRoute();
     proxSpeakerDelay = Settings.System.getInt(mContext.getContentResolver(),
-        Settings.System.PROXIMITY_AUTO_SPEAKER_DELAY, 3000);
+        PROXIMITY_AUTO_SPEAKER_DELAY, 3000);
      // if phone off hook (call in session), and prox speaker feature is on
     if (isPhoneOffhook && Settings.System.getInt(mContext.getContentResolver(),
-        Settings.System.PROXIMITY_AUTO_SPEAKER, 0) == 1
+        PROXIMITY_AUTO_SPEAKER, 0) == 1
         // as long as AudioState isn't currently wired headset or bluetooth
         && audioState != CallAudioState.ROUTE_WIRED_HEADSET
         && audioState != CallAudioState.ROUTE_BLUETOOTH) {

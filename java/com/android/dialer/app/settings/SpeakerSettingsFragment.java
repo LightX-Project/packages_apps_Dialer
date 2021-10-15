@@ -55,36 +55,36 @@ public class SpeakerSettingsFragment extends PreferenceFragment
 
 	mAutoAnswer = (SwitchPreference) findPreference(AUTO_ANSWER_CALL_KEY);
         mAutoAnswer.setChecked(Settings.System.getInt(resolver,
-                Settings.System.AUTO_ANSWER_CALL_KEY, 0) == 1);
+                     AUTO_ANSWER_CALL_KEY, 0) == 1);
         mAutoAnswer.setOnPreferenceChangeListener(this);
 
         mProxSpeaker = (SwitchPreference) findPreference(PROXIMITY_AUTO_SPEAKER);
         mProxSpeaker.setChecked(Settings.System.getInt(resolver,
-                Settings.System.PROXIMITY_AUTO_SPEAKER, 0) == 1);
+                    PROXIMITY_AUTO_SPEAKER, 0) == 1);
         mProxSpeaker.setOnPreferenceChangeListener(this);
 
         mProxSpeakerDelay = (ListPreference) findPreference(PROXIMITY_AUTO_SPEAKER_DELAY);
         int proxDelay = Settings.System.getInt(resolver,
-                Settings.System.PROXIMITY_AUTO_SPEAKER_DELAY, 3000);
+                    PROXIMITY_AUTO_SPEAKER_DELAY, 3000);
         mProxSpeakerDelay.setValue(String.valueOf(proxDelay));
         mProxSpeakerDelay.setOnPreferenceChangeListener(this);
         updateProximityDelaySummary(proxDelay);
 
 	mAutoAnswerDelay = (ListPreference) findPreference(AUTO_ANSWER_DELAY);
         int ansDelay = Settings.System.getInt(resolver,
-                Settings.System.AUTO_ANSWER_DELAY, 100);
+                    AUTO_ANSWER_DELAY, 100);
         mAutoAnswerDelay.setValue(String.valueOf(ansDelay));
         mAutoAnswerDelay.setOnPreferenceChangeListener(this);
         updateAnswerDelaySummary(ansDelay);
 
         mProxSpeakerIncallOnly = (SwitchPreference) findPreference(PROXIMITY_AUTO_SPEAKER_INCALL_ONLY);
         mProxSpeakerIncallOnly.setChecked(Settings.System.getInt(resolver,
-                Settings.System.PROXIMITY_AUTO_SPEAKER_INCALL_ONLY, 0) == 1);
+                    PROXIMITY_AUTO_SPEAKER_INCALL_ONLY, 0) == 1);
         mProxSpeakerIncallOnly.setOnPreferenceChangeListener(this);
 
 	mProxAnswer = (SwitchPreference) findPreference(PROXIMITY_AUTO_ANSWER_INCALL_ONLY);
         mProxAnswer.setChecked(Settings.System.getInt(resolver,
-                Settings.System.PROXIMITY_AUTO_ANSWER_INCALL_ONLY, 0) == 1);
+                    PROXIMITY_AUTO_ANSWER_INCALL_ONLY, 0) == 1);
         mProxAnswer.setOnPreferenceChangeListener(this);
     }
 
@@ -93,29 +93,29 @@ public class SpeakerSettingsFragment extends PreferenceFragment
         final ContentResolver resolver = getActivity().getContentResolver();
 
         if (preference == mProxSpeaker) {
-            Settings.System.putInt(resolver, Settings.System.PROXIMITY_AUTO_SPEAKER,
+            Settings.System.putInt(resolver, PROXIMITY_AUTO_SPEAKER,
                     ((Boolean) newValue) ? 1 : 0);
             return true;
 	} else if (preference == mAutoAnswer) {
-            Settings.System.putInt(resolver, Settings.System.AUTO_ANSWER_CALL_KEY,
+            Settings.System.putInt(resolver, AUTO_ANSWER_CALL_KEY,
                     ((Boolean) newValue) ? 1 : 0);
             return true;
         } else if (preference == mProxSpeakerDelay) {
             int proxDelay = Integer.valueOf((String) newValue);
-            Settings.System.putInt(resolver, Settings.System.PROXIMITY_AUTO_SPEAKER_DELAY, proxDelay);
+            Settings.System.putInt(resolver, PROXIMITY_AUTO_SPEAKER_DELAY, proxDelay);
             updateProximityDelaySummary(proxDelay);
             return true;
 	} else if (preference == mAutoAnswerDelay) {
             int ansDelay = Integer.valueOf((String) newValue);
-            Settings.System.putInt(resolver, Settings.System.AUTO_ANSWER_DELAY, ansDelay);
+            Settings.System.putInt(resolver, AUTO_ANSWER_DELAY, ansDelay);
             updateAnswerDelaySummary(ansDelay);
             return true;
         } else if (preference == mProxSpeakerIncallOnly) {
-            Settings.System.putInt(resolver, Settings.System.PROXIMITY_AUTO_SPEAKER_INCALL_ONLY,
+            Settings.System.putInt(resolver, PROXIMITY_AUTO_SPEAKER_INCALL_ONLY,
                     ((Boolean) newValue) ? 1 : 0);
             return true;
         } else if (preference == mProxAnswer) {
-            Settings.System.putInt(resolver, Settings.System.PROXIMITY_AUTO_ANSWER_INCALL_ONLY,
+            Settings.System.putInt(resolver, PROXIMITY_AUTO_ANSWER_INCALL_ONLY,
                     ((Boolean) newValue) ? 1 : 0);
             return true;
 	}
